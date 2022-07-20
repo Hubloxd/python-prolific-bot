@@ -17,14 +17,6 @@ class FileIsMissingException(Exception):
         super().__init__(self.message)
 
 
-class BadConfigFormattingError(Exception):
-    """Exception raised when looping through invalid formatted config"""
-
-    def __init__(self, index: int):
-        self.message = f"Invalid config formatting at line {index + 1}"
-        super().__init__(self.message)
-
-
 class UnknownArgumentPassed(Exception):
     """Exception raised when an unknown argument is passed"""
 
@@ -74,17 +66,14 @@ def fetch_config() -> dict[str: str]:
     with open('config.ini', 'r') as f:
         lines = [line.strip() for line in f.readlines() if line]
     for index, line in enumerate(lines):
-        try:
-            split = line.replace(' ', '').split('=')
-            key = split[0]
-            if len(split) > 1:
-                value = split[1]
-            else:
-                value = ''
-            config[key] = value
-        except ValueError as e:
-            # raise BadConfigFormattingError(index=index)
-            raise e
+        split = line.replace(' ', '').split('=')
+        key = split[0]
+        if len(split) > 1:
+            value = split[1]
+        else:
+            value = ''
+        config[key] = value
+
     return config
 
 
