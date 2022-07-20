@@ -75,11 +75,16 @@ def fetch_config() -> dict[str: str]:
         lines = [line.strip() for line in f.readlines() if line]
     for index, line in enumerate(lines):
         try:
-            key, value = [x.strip() for x in line.split(' = ')]
+            split = line.replace(' ', '').split('=')
+            key = split[0]
+            if len(split) > 1:
+                value = split[1]
+            else:
+                value = ''
             config[key] = value
-        except ValueError:
-            raise BadConfigFormattingError(index=index)
-
+        except ValueError as e:
+            # raise BadConfigFormattingError(index=index)
+            raise e
     return config
 
 
@@ -128,7 +133,7 @@ def play_audio(success: bool):
 
 if __name__ == '__main__':
     # init()
-    # print(fetch_config().items())
+    print(fetch_config().items())
     # handle_args()
     # u, p = login_form()
-    play_audio(success=False)
+    # play_audio(success=False)
