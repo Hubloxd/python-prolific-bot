@@ -13,12 +13,6 @@ from json import dumps, load
 from utils import fetch_config
 
 
-class BrokenCookieException(Exception):
-    def __init__(self):
-        self.message = "Something is wrong"
-        super().__init__(self.message)
-
-
 class Operations:
     def __init__(self, config: dict[str: str]):
         self.chrome_version = config['chrome_version']
@@ -26,7 +20,10 @@ class Operations:
 
         options = Options()
         options.add_argument("start-maximized")
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        if self.chrome_version:
+            self.driver = webdriver.Chrome(service=Service(ChromeDriverManager(version=self.chrome_version).install()), options=options)
+        else:
+            self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     def __del__(self):
         print("Shutting down")
@@ -103,6 +100,7 @@ class Operations:
                     return True
                 sleep(self.sleep_time)
             except Exception as e:
+                print(e)
                 return False
 
 
