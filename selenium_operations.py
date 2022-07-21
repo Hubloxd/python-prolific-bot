@@ -91,12 +91,8 @@ class Operations:
                 html = self.driver.page_source
                 soup = Soup(html, "html.parser")
                 if soup.find_all('h3'):
-                    self.driver.find_element(
-                        By.XPATH,
-                        value='/html/body/div[1]/div[2]/div/div/div/div/div[1]/ul/li/div/div[1]/div[2]/div').click()
-                    self.driver.find_element(
-                        By.XPATH,
-                        value='/html/body/div[1]/div[2]/div/div/div/div/div[2]/div[1]/div[3]/button').click()
+                    self.driver.execute_script('document.getElementsByClassName("details-group")[0].click()')
+                    self.driver.execute_script('document.getElementsByClassName("el-button button reserve-study-button el-button--primary el-button--l")[0].click()')
                     return True
                 sleep(self.sleep_time)
             except Exception as e:
