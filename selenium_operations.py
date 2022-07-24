@@ -84,7 +84,7 @@ class Operations:
         # dump cookies
         self.dump_cookies()
 
-    def main_loop(self) -> bool:
+    def main_loop(self) -> bool | None:
         self.driver.execute_script("document.body.style.zoom = '50%'")
         while True:
             try:
@@ -95,9 +95,8 @@ class Operations:
                     self.driver.execute_script('document.getElementsByClassName("el-button button reserve-study-button el-button--primary el-button--l")[0].click()')
                     return True
                 sleep(self.sleep_time)
-            except Exception as e:
-                print(e)
-                return False
+            except KeyboardInterrupt:
+                return None
 
 
 if __name__ == '__main__':

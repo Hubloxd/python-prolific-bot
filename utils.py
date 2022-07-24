@@ -31,7 +31,7 @@ def init() -> None:
     :return: None
     """
 
-    necessary_files = ['config.ini', 'success.mp3', 'fail.mp3', ]
+    necessary_files = ['config.ini', 'success.wav', 'fail.wav', ]
 
     for filename in necessary_files:
         if exists(join('./', filename)):
@@ -115,9 +115,9 @@ def login_form() -> tuple[str, str]:
 
 def play_audio(success: bool):
     if success:
-        playsound('./success.mp3')
+        playsound('./success.wav')
     else:
-        playsound('./fail.mp3')
+        playsound('./fail.wav')
 
 
 if __name__ == '__main__':
