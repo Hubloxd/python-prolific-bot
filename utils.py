@@ -1,7 +1,9 @@
 from os.path import join, exists
 from os import remove
 from sys import argv
-from playsound import playsound
+from time import sleep
+
+import simpleaudio as sa
 
 
 class FileIsMissingException(Exception):
@@ -115,9 +117,11 @@ def login_form() -> tuple[str, str]:
 
 def play_audio(success: bool):
     if success:
-        playsound('./success.wav')
+        wave_obj = sa.WaveObject.from_wave_file('./success.wav')
     else:
-        playsound('./fail.wav')
+        wave_obj = sa.WaveObject.from_wave_file('./fail.wav')
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
 
 
 if __name__ == '__main__':

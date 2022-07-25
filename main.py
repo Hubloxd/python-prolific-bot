@@ -4,7 +4,7 @@ from selenium.common import JavascriptException
 from time import sleep
 
 
-if __name__ == '__main__':
+def main():
     handle_args()
     init()
     user, passwd = login_form()
@@ -18,3 +18,7 @@ if __name__ == '__main__':
 
     sleep(3)
     input("PRESS ANY KEY TO SHUT DOWN THE WEBDRIVER")
+
+
+if __name__ == '__main__':
+    main()
